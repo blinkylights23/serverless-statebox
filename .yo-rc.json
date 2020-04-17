@@ -1,0 +1,9 @@
+{
+  "generator-node": {
+    "promptValues": {
+      "authorName": "Paul Smith",
+      "authorEmail": "paul@paulsmith.io",
+      "authorUrl": ""
+    }
+  }
+}
