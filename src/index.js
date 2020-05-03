@@ -1,3 +1,19 @@
+
+/*
+
+* Validate a state machine definition
+* Given input, execute the state machine
+  * generate logs
+  * create artifacts
+  * report the number of state transitions
+* List previous executions
+* Retry a previous exection
+* Retry a step from a previous execution
+
+*/
+
+
+
 class ServerlessStateboxPlugin {
   constructor(serverless, options) {
     this.serverless = serverless
@@ -14,6 +30,11 @@ class ServerlessStateboxPlugin {
             shortcut: 'm'
           }
         }
+      },
+      statebox: {
+        usage: 'Helps with local development when working with AWS Step Functions',
+        lifecycleEvents: [],
+        options: {}
       }
     }
 
