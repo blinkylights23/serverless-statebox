@@ -1,0 +1,13 @@
+name: helloWorldStateMachine
+validate: true
+definition:
+  Comment: 'Example State Machine'
+  StartAt: Start
+  TimeoutSeconds: 720
+  States:
+    Start:
+      Type: Task
+      Description: Do a thing
+      Resource:
+        Fn::GetAtt: [hello, Arn]
+      End: true

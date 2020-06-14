@@ -1,0 +1,36 @@
+service: serverless-statebox
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+
+package:
+  include:
+    - 'src/**'
+  exclude:
+    - './**'
+    - '!node_modules/**'
+
+functions:
+  hello:
+    handler: lambdas/hello.handler
+
+stepFunctions:
+  stateMachines:
+    helloWorld: ${file(./awsResources/helloWorld.yml)}
+
+plugins:
+  - serverless-step-functions
+  - './src/serverless-statebox'
+
+custom:
+  defaults:
+    stage: local
+    logLevel: INFO
+    nodeEnv: local
+    awsRegion: us-east-1
+  derived:
+    stage: ${opt:stage, env:SERVERLESS_STAGE, self:custom.defaults.stage}
+    logLevel: ${opt:logLevel, env:LOG_LEVEL, file(./env.yml):${self:custom.derived.stage}.logLevel, self:custom.defaults.logLevel}
+    nodeEnv: ${file(./env.yml):${self:custom.derived.stage}.nodeEnv, self:custom.defaults.nodeEnv} # The NODE_ENV for the stage to run as
+    awsRegion: ${opt:region, env:AWS_REGION, file(./env.yml):${self:custom.derived.stage}.awsRegion}
